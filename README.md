@@ -70,6 +70,13 @@ npx shadcn-ui@latest add button
 npx shadcn-ui@latest add form
 ```
 
+# 4. api
+## installation de appwrite
+1- les commandes sont :
+
+```
+ npm i appwrite
+```
 
 
 
