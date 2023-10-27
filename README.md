@@ -28,6 +28,7 @@ If you are developing a production application, we recommend updating the config
 
 # le tuto
 https://www.youtube.com/watch?v=_W3R2VwRyF4
+https://gist.github.com/adrianhajdin/4d2500bf5af601bbd9f4f596298d33ac
 
 
 # 1. setup project
@@ -47,4 +48,33 @@ npm i tailwindcss-animate
 npm install react-router-dom
 ```	
 
+# 3. auth pages, form
+## shadcn pour créer le formulaire
+https://ui.shadcn.com/
 
+1- les commandes sont :
+```
+npm i -D @types/node
+npx shadcn-ui@latest init
+
+```
+
+2- pour intsaller un bouton
+```
+npx shadcn-ui@latest add button
+
+```	
+
+3- pour l'installation de form
+```
+npx shadcn-ui@latest add form
+```
+
+
+
+
+
+# Autres ressources
+
+### loader
+https://www.svgbackgrounds.com/elements/animated-svg-preloaders/
