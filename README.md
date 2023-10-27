@@ -47,4 +47,19 @@ npm i tailwindcss-animate
 npm install react-router-dom
 ```	
 
+# 3. auth pages, form
+## shadcn pour créer le formulaire
+https://ui.shadcn.com/
 
+1- les commandes sont :
+```
+npm i -D @types/node
+npx shadcn-ui@latest init
+
+```
+
+2- pour intsaller un bouton
+```
+npx shadcn-ui@latest add button
+
+```	
