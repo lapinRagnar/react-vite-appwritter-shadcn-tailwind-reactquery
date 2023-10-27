@@ -69,3 +69,12 @@ npx shadcn-ui@latest add button
 ```
 npx shadcn-ui@latest add form
 ```
+
+
+
+
+
+# Autres ressources
+
+### loader
+https://www.svgbackgrounds.com/elements/animated-svg-preloaders/

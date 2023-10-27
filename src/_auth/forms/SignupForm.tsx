@@ -7,6 +7,7 @@ import { Form,FormControl, FormField, FormItem, FormLabel, FormMessage, } from "
 import { Input } from "@/components/ui/input"
 import { SignupValidation } from "@/lib/validation"
 import { z } from "zod"
+import Loader from "@/components/shared/Loader"
 
  
 
@@ -114,7 +115,7 @@ const SignupForm = () => {
             {
               isLoading ? (
                 <div className="flex-center gap-2">
-                  Loading...
+                  <Loader /> Loading
                 </div>
               ) : 
 
