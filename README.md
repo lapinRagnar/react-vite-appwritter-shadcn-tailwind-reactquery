@@ -64,3 +64,8 @@ npx shadcn-ui@latest init
 npx shadcn-ui@latest add button
 
 ```	
+
+3- pour l'installation de form
+```
+npx shadcn-ui@latest add form
+```
