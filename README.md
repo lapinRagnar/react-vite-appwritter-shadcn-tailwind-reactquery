@@ -28,6 +28,7 @@ If you are developing a production application, we recommend updating the config
 
 # le tuto
 https://www.youtube.com/watch?v=_W3R2VwRyF4
+https://gist.github.com/adrianhajdin/4d2500bf5af601bbd9f4f596298d33ac
 
 
 # 1. setup project
