@@ -30,7 +30,7 @@ If you are developing a production application, we recommend updating the config
 https://www.youtube.com/watch?v=_W3R2VwRyF4
 
 
-# setup project
+# 1. setup project
 ## installation de tailwind css
 1- les commandes sont :
 ```
@@ -39,3 +39,12 @@ npx tailwindcss init -p
 npm i tailwindcss-animate
 ```	
 2- configurer le theme dans tailwind.config.js
+
+# 2. routing
+## installation de react-router-dom
+1- les commandes sont :
+```
+npm install react-router-dom
+```	
+
+
