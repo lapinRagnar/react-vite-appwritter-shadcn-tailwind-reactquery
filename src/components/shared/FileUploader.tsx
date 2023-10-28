@@ -1,15 +1,31 @@
 import React, {useCallback, useState} from 'react'
-import {useDropzone} from 'react-dropzone'
+import {FileWithPath, useDropzone} from 'react-dropzone'
 import { Button } from '../ui/button'
 
-const Fileuploader = () => {
+
+type FileUploaderProps = {
+  fieldChange: (FILES: File[]) => void,
+  mediaUrl: string
+}
+
+const Fileuploader = ({fieldChange, mediaUrl}: FileUploaderProps) => {
+
+  const [file, setFile] = useState<File[]>([])
 
   const [fileUrl, setFileUrl] = useState('')
 
-  const onDrop = useCallback(acceptedFiles => {
+  const onDrop = useCallback((acceptedFiles: FileWithPath[]) => {
     // Do something with the files
-  }, [])
-  const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
+    setFile(acceptedFiles)
+    fieldChange(acceptedFiles)
+    setFileUrl(URL.createObjectURL(acceptedFiles[0]))
+  }, [file])                        // mbola rotaka, il a mis file dans la dependance
+  const {getRootProps, getInputProps} = useDropzone({
+    onDrop,
+    accept: {
+      'image/*': ['.jpeg', '.jpg', '.png', '.svg'],
+    }
+  })
 
   return (
     <div {...getRootProps()} className='flex flex-center flex-col bg-dark-3 rounded-xl cursor-pointer'>
@@ -17,9 +33,19 @@ const Fileuploader = () => {
       {
         fileUrl 
         ? (
-          <div>
-            test 1
-          </div>
+          <>
+          
+            <div className='flex flex-1 justify-center w-full p-5 lg:p-10'>
+              <img 
+                src={fileUrl}
+                alt='image'
+                className='file_uploader-img'
+              />
+            </div>
+            
+            <p className='file_uploader-label'>click or drag a photo to replace</p>
+
+          </>
         )
         
         : (
