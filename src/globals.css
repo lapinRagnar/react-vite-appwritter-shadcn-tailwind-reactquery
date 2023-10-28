@@ -1,6 +1,10 @@
-@tailwind base;
+/* @tailwind base;
 @tailwind components;
-@tailwind utilities;
+@tailwind utilities; */
+
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
  
 @layer base {
   :root {
@@ -299,6 +303,7 @@
 
   /* Topbar */
   .topbar {
+    /* @apply sticky top-0 z-50 md:hidden bg-dark-2 w-full; */
     @apply sticky top-0 z-50 md:hidden bg-dark-2 w-full;
   }
 
