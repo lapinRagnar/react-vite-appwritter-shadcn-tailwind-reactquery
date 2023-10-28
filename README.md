@@ -121,6 +121,14 @@ VITE_APPWRITE_POST_COLLECTION_ID=<l'id de la collection Posts>
 VITE_APPWRITE_USER_COLLECTION_ID=<l'id de la collection Users>
 
 
+# react query - tanStack query
+https://tanstack.com/table/v8
+# installation
+```
+npm i @tanstack/react-query
+```	
+
+
 
 
 # Autres ressources
