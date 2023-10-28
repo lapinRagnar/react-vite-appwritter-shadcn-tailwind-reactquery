@@ -2,6 +2,8 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 
 import { Button } from "@/components/ui/button"
+import { useToast } from "@/components/ui/use-toast"
+
 
 import { Form,FormControl, FormField, FormItem, FormLabel, FormMessage, } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
@@ -17,6 +19,7 @@ import { createUserAccount } from "@/lib/appwrite/api"
 
 const SignupForm = () => {
 
+  const { toast } = useToast()
   const isLoading = false
 
   // 1. Define your form.
@@ -36,9 +39,21 @@ const SignupForm = () => {
     // ✅ This will be type-safe and validated.
     console.log(values)
     // creér l'user
+
+
     const newUser = await createUserAccount(values)
 
     console.log('newUser', newUser)
+
+    if (!newUser) {
+      return  toast({
+        title: "Sign up failed. Please try again."
+      })
+    }
+
+    // const session = await signInAccount()
+
+
   }
 
   return (
