@@ -133,5 +133,9 @@ npm i @tanstack/react-query
 
 # Autres ressources
 
-### loader
+### loader svg
 https://www.svgbackgrounds.com/elements/animated-svg-preloaders/
+
+### svg icons
+https://www.svgrepo.com/svg/43631/logout?edit=true
+
