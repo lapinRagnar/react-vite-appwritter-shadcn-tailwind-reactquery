@@ -129,7 +129,14 @@ npm i @tanstack/react-query
 ```	
 
 
+# file uploader
 
+https://react-dropzone.js.org/
+
+```
+npm i react-dropzone
+
+```	
 
 # Autres ressources
 
