@@ -76,16 +76,16 @@ export async function signInAccount(user: {
 
 
 export async function getCurrentUser() {
+
   try {
-    const currentAccount = await account.get() 
+    const currentAccount = await account.get()
 
     if (!currentAccount) throw Error
 
-    const currentUser = await databases.getDocument(
+    const currentUser = await databases.listDocuments(
       appwriteConfig.databaseId,
       appwriteConfig.userCollectionId,
-      Query.equal('accoundId', currentAccount.$id),    // tena mbola manahirana
-      // Query.equal('accoundId', currentAccount.$id),    
+      [Query.equal('accountId', currentAccount.$id)],    // tena mbola manahirana - c'est reglé
     )
 
     if (!currentUser) throw Error
