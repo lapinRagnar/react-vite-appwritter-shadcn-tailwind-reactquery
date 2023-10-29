@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -15,27 +14,36 @@ import {
 import { Input } from "@/components/ui/input"
 import { Textarea } from "../ui/textarea"
 import Fileuploader from "../shared/Fileuploader"
+import { PostValidation } from "@/lib/validation"
+import { Models } from 'appwrite'
 
 
  
-const formSchema = z.object({
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-})
+// const formSchema = z.object({
+//   username: z.string().min(2, {
+//     message: "Username must be at least 2 characters.",
+//   }),
+// })
 
-const PostForm = ({ post }) => {
+type PostFormProps = {
+  post?: Models.Document
+}
+
+const PostForm = ({ post }: PostFormProps) => {
 
   // 1. Define your form.
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof PostValidation>>({
+    resolver: zodResolver(PostValidation),
     defaultValues: {
-      username: "",
+      caption: post ? post?.caption : "",
+      file: [],
+      location: post ? post?.location : "",
+      tags: post ? post.tags.join(',') : ""
     },
   })
   
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  function onSubmit(values: z.infer<typeof PostValidation>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values)
@@ -87,7 +95,7 @@ const PostForm = ({ post }) => {
               <FormLabel className="shad-form_label">Add Location</FormLabel>
               <FormControl>
                 
-                <Input type="text" className="shad-input" />
+                <Input type="text" className="shad-input" {...field} />
                 
               </FormControl>
               <FormMessage className="shad-form_message" />
@@ -103,7 +111,7 @@ const PostForm = ({ post }) => {
               <FormLabel className="shad-form_label">Add Tags (separated by ", ") </FormLabel>
               <FormControl>
                 
-                <Input type="text" className="shad-input" placeholder="JS, React, Next and more"/>
+                <Input type="text" className="shad-input" placeholder="JS, React, Next and more" {...field} />
                 
               </FormControl>
               <FormMessage className="shad-form_message" />
