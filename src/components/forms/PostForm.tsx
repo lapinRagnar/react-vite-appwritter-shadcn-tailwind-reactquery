@@ -13,9 +13,10 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "../ui/textarea"
-import Fileuploader from "../shared/Fileuploader"
+
 import { PostValidation } from "@/lib/validation"
 import { Models } from 'appwrite'
+import Fileuploader from "../shared/FileUploader"
 
 
  
