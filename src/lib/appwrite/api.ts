@@ -78,8 +78,11 @@ export async function signInAccount(user: {
 export async function getCurrentUser() {
 
   try {
+
     const currentAccount = await account.get()
 
+    console.log("dans api - getCurrentUser", currentAccount)
+    
     if (!currentAccount) throw Error
 
     const currentUser = await databases.listDocuments(
@@ -209,3 +212,65 @@ export async function getRecentPosts() {
 }
 
 
+export async function likePost(postId: string, likesArray: string[]){
+  try {
+    const updatedPost = await databases.updateDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.postCollectionId,
+      postId,
+      {
+        likes: likesArray
+      }
+    )
+
+    if (!updatedPost) throw Error
+    
+    return updatedPost
+
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function savePost(postId: string, userId: string){
+  
+  console.log("le postId dans savePost dans api", postId)
+  console.log("le userID dans savePost dans api", userId)
+  
+  try {
+    const updatedPost = await databases.createDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.savesCollectionId,
+      ID.unique(),
+      {
+        post: postId,
+        user: userId
+      }
+    )
+
+    if (!updatedPost) throw Error
+    
+    return updatedPost
+
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+
+export async function deleteSavedPost(savedRecordId: string){
+  try {
+    const statusCode = await databases.deleteDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.savesCollectionId,
+      savedRecordId
+    )
+
+    if (!statusCode) throw Error
+    
+    return {status: "ok, post bien supprimé!"}
+
+  } catch (error) {
+    console.log(error)
+  }
+}
