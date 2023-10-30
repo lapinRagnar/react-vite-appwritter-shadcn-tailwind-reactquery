@@ -112,17 +112,12 @@ export async function signOutAccount() {
 export async function createPost(post: INewPost) {
   try {
     //upload image to storage
-    const uploadedFile = await upLoadFile(post.file[0])
-
-    console.log("je suis dans api - uploadedFile", {uploadedFile});
-    
+    const uploadedFile = await upLoadFile(post.file[0])    
 
     if (!uploadedFile) throw Error
 
     // get the file url
     const fileUrl = getFilePreview(uploadedFile.$id)
-
-    console.log("je suis dans api - fileUrl", {fileUrl});
 
     if (!fileUrl){
       deleteFile(uploadedFile.$id)
@@ -132,10 +127,6 @@ export async function createPost(post: INewPost) {
     // convert tags in an array
     const tag = post.tag?.replace(/ /g, '').split(',') || [] 
 
-    console.log("je suis dans api - tags", tag);
-
-
-    console.log("je suis dans api - avant le save dans la database", post);
 
     // save the new post to the database
     const newPost = await databases.createDocument(
@@ -152,17 +143,12 @@ export async function createPost(post: INewPost) {
       }
     )
 
-
-    console.log("je suis dans api - newPost", {newPost});
-
     if (!newPost){
-      console.log("erreur de creation du post", newPost);
       await deleteFile(uploadedFile.$id)
       throw Error
     }
 
     return newPost
-
 
   } catch (error) {
     console.log(error)
