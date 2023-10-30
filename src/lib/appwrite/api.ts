@@ -78,8 +78,11 @@ export async function signInAccount(user: {
 export async function getCurrentUser() {
 
   try {
+
     const currentAccount = await account.get()
 
+    console.log("dans api - getCurrentUser", currentAccount)
+    
     if (!currentAccount) throw Error
 
     const currentUser = await databases.listDocuments(
@@ -112,17 +115,12 @@ export async function signOutAccount() {
 export async function createPost(post: INewPost) {
   try {
     //upload image to storage
-    const uploadedFile = await upLoadFile(post.file[0])
-
-    console.log("je suis dans api", {uploadedFile});
-    
+    const uploadedFile = await upLoadFile(post.file[0])    
 
     if (!uploadedFile) throw Error
 
     // get the file url
     const fileUrl = getFilePreview(uploadedFile.$id)
-
-    console.log("je suis dans api - fileUrl", {fileUrl});
 
     if (!fileUrl){
       deleteFile(uploadedFile.$id)
@@ -130,29 +128,23 @@ export async function createPost(post: INewPost) {
     }
 
     // convert tags in an array
-    const tags = post.tags?.replace(/ /g, '').split(',') || [] 
+    const tag = post.tag?.replace(/ /g, '').split(',') || [] 
 
-    console.log("je suis dans api - tags", {tags});
-
-
-    console.log("je suis dans api - avant le save dans la database", post);
 
     // save the new post to the database
     const newPost = await databases.createDocument(
-      ID.unique(),
       appwriteConfig.databaseId,
       appwriteConfig.postCollectionId,
+      ID.unique(),
       {
         creator: post.userId,
         caption: post.caption,
         imageUrl: fileUrl,
         imageId: uploadedFile.$id,
         location: post.location,
-        tags: tags
+        tag: tag
       }
     )
-
-    console.log("je suis dans api - newPost", {newPost});
 
     if (!newPost){
       await deleteFile(uploadedFile.$id)
@@ -160,7 +152,6 @@ export async function createPost(post: INewPost) {
     }
 
     return newPost
-
 
   } catch (error) {
     console.log(error)
@@ -181,7 +172,7 @@ export async function upLoadFile(file: File) {
 }
 
 
-export async function getFilePreview(fileId: string) {
+export function getFilePreview(fileId: string) {
   try {
     const fileUrl = storage.getFilePreview(
       appwriteConfig.storageId,
@@ -221,3 +212,65 @@ export async function getRecentPosts() {
 }
 
 
+export async function likePost(postId: string, likesArray: string[]){
+  try {
+    const updatedPost = await databases.updateDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.postCollectionId,
+      postId,
+      {
+        likes: likesArray
+      }
+    )
+
+    if (!updatedPost) throw Error
+    
+    return updatedPost
+
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function savePost(postId: string, userId: string){
+  
+  console.log("le postId dans savePost dans api", postId)
+  console.log("le userID dans savePost dans api", userId)
+  
+  try {
+    const updatedPost = await databases.createDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.savesCollectionId,
+      ID.unique(),
+      {
+        post: postId,
+        user: userId
+      }
+    )
+
+    if (!updatedPost) throw Error
+    
+    return updatedPost
+
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+
+export async function deleteSavedPost(savedRecordId: string){
+  try {
+    const statusCode = await databases.deleteDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.savesCollectionId,
+      savedRecordId
+    )
+
+    if (!statusCode) throw Error
+    
+    return {status: "ok, post bien supprimé!"}
+
+  } catch (error) {
+    console.log(error)
+  }
+}

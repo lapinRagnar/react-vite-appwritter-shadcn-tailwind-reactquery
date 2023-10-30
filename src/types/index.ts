@@ -27,7 +27,7 @@ export type INewPost = {
   caption: string;
   file: File[];
   location?: string;
-  tags?: string;
+  tag?: string;
 };
 
 export type IUpdatePost = {
