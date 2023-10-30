@@ -30,6 +30,9 @@ If you are developing a production application, we recommend updating the config
 https://www.youtube.com/watch?v=_W3R2VwRyF4
 https://gist.github.com/adrianhajdin/4d2500bf5af601bbd9f4f596298d33ac
 
+https://github.com/adrianhajdin/social_media_app
+
+
 
 # 1. setup project
 ## installation de tailwind css
