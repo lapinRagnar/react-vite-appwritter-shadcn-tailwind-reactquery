@@ -114,7 +114,7 @@ export async function createPost(post: INewPost) {
     //upload image to storage
     const uploadedFile = await upLoadFile(post.file[0])
 
-    console.log("je suis dans api", {uploadedFile});
+    console.log("je suis dans api - uploadedFile", {uploadedFile});
     
 
     if (!uploadedFile) throw Error
@@ -130,31 +130,33 @@ export async function createPost(post: INewPost) {
     }
 
     // convert tags in an array
-    const tags = post.tags?.replace(/ /g, '').split(',') || [] 
+    const tag = post.tag?.replace(/ /g, '').split(',') || [] 
 
-    console.log("je suis dans api - tags", {tags});
+    console.log("je suis dans api - tags", tag);
 
 
     console.log("je suis dans api - avant le save dans la database", post);
 
     // save the new post to the database
     const newPost = await databases.createDocument(
-      ID.unique(),
       appwriteConfig.databaseId,
       appwriteConfig.postCollectionId,
+      ID.unique(),
       {
         creator: post.userId,
         caption: post.caption,
         imageUrl: fileUrl,
         imageId: uploadedFile.$id,
         location: post.location,
-        tags: tags
+        tag: tag
       }
     )
+
 
     console.log("je suis dans api - newPost", {newPost});
 
     if (!newPost){
+      console.log("erreur de creation du post", newPost);
       await deleteFile(uploadedFile.$id)
       throw Error
     }
@@ -181,7 +183,7 @@ export async function upLoadFile(file: File) {
 }
 
 
-export async function getFilePreview(fileId: string) {
+export function getFilePreview(fileId: string) {
   try {
     const fileUrl = storage.getFilePreview(
       appwriteConfig.storageId,

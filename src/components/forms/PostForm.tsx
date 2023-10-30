@@ -38,6 +38,9 @@ type PostFormProps = {
 const PostForm = ({ post }: PostFormProps) => {
 
   const { mutateAsync: createPost, isPending: isLoadingCreate } = useCreatePost()
+
+  console.log("postform - isLoadingCreate", {isLoadingCreate})
+  
   const { user } = useUserContext()
   const { toast } = useToast()
   const navigate = useNavigate()
@@ -54,7 +57,6 @@ const PostForm = ({ post }: PostFormProps) => {
     },
   })
 
-  console.log('le postForm au debut - form', form)
   
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof PostValidation>) {

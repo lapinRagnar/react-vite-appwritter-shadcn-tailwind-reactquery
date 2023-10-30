@@ -80,7 +80,7 @@ const SigninForm = () => {
       <div className="sm:w-420 flex items-center flex-col">
 
         <img 
-          src="/assets/images/logo2.png"
+          src="/assets/images/logo4-1.png"
           alt="logo"
         />
 
