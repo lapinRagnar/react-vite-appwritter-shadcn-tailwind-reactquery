@@ -37,7 +37,7 @@ export type IUpdatePost = {
   imageUrl: URL;
   file: File[];
   location?: string;
-  tags?: string;
+  tag?: string;
 };
 
 export type IUser = {
