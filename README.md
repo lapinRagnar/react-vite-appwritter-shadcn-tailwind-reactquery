@@ -149,3 +149,12 @@ https://www.svgbackgrounds.com/elements/animated-svg-preloaders/
 ### svg icons
 https://www.svgrepo.com/svg/43631/logout?edit=true
 
+
+
+# infinite scroll
+
+https://www.npmjs.com/package/react-intersection-observer
+
+```
+npm install react-intersection-observer --save
+```	
