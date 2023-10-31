@@ -128,9 +128,14 @@ export async function createPost(post: INewPost) {
     }
 
     // convert tags in an array
-    const tag = post.tag?.replace(/ /g, '').split(',') || [] 
+    const tags = post.tag?.replace(/ /g, '').split(',') || []
+    console.log("api - createPost - tags", tags);
+    
 
-
+    console.log("data formulaire - avant enregistrement - api - ", {
+      post
+    })
+    
     // save the new post to the database
     const newPost = await databases.createDocument(
       appwriteConfig.databaseId,
@@ -142,7 +147,8 @@ export async function createPost(post: INewPost) {
         imageUrl: fileUrl,
         imageId: uploadedFile.$id,
         location: post.location,
-        tag: tag
+        tag: post.tag
+        // tag: tags
       }
     )
 
@@ -336,8 +342,8 @@ export async function updatePost(post: IUpdatePost) {
 
 
     // convert tags in an array
-    const tag = post.tag?.replace(/ /g, '').split(',') || [] 
-    console.log("api - tag", tag)
+    const tags = post.tag?.replace(/ /g, '').split(',') || [] 
+    console.log("api - tag", tags)
     
 
     console.log("data avant mise à jour", {
@@ -345,7 +351,7 @@ export async function updatePost(post: IUpdatePost) {
       imageUrl: image.imageUrl,
       imageId: image.imageId,
       location: post.location,
-      tag: tag
+      tag: tags
     });
     
     // save the new post to the database
@@ -358,7 +364,7 @@ export async function updatePost(post: IUpdatePost) {
         imageUrl: image.imageUrl,
         imageId: image.imageId,
         location: post.location,
-        tag: tag
+        tag: tags
       }
     )
 
