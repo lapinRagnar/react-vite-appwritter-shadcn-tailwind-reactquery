@@ -91,8 +91,6 @@ export async function getCurrentUser() {
   try {
 
     const currentAccount = await getAccount()
-
-    console.log("dans api - getCurrentUser", currentAccount)
     
     if (!currentAccount) throw Error
 
@@ -101,9 +99,6 @@ export async function getCurrentUser() {
       appwriteConfig.userCollectionId,
       [Query.equal('accountId', currentAccount.$id)],    // tena mbola manahirana - c'est reglé
     )
-
-    console.log("je passe la, currentUser", currentUser)
-    
 
     if (!currentUser) throw Error
 
@@ -142,13 +137,8 @@ export async function createPost(post: INewPost) {
     }
 
     // convert tags in an array
-    const tags = post.tag?.replace(/ /g, '').split(',') || []
+    const tags = post.tags?.replace(/ /g, '').split(',') || []
     console.log("api - createPost - tags", tags);
-    
-
-    console.log("data formulaire - avant enregistrement - api - ", {
-      post
-    })
     
     // save the new post to the database
     const newPost = await databases.createDocument(
@@ -161,7 +151,7 @@ export async function createPost(post: INewPost) {
         imageUrl: fileUrl,
         imageId: uploadedFile.$id,
         location: post.location,
-        tag: post.tag
+        tags: post.tags
         // tag: tags
       }
     )
@@ -187,7 +177,7 @@ export async function upLoadFile(file: File) {
     )
     return uploadedFile
   } catch (error) {
-    console.log(error)
+    console.log("dans upload file", error)
   }
 }
 

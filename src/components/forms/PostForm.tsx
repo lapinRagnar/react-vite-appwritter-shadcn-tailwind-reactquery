@@ -38,15 +38,9 @@ type PostFormProps = {
 
 const PostForm = ({ post, action }: PostFormProps) => {
 
-  const { mutateAsync: createPost, isPending: isLoadingCreate } = useCreatePost()
-  const { mutateAsync: updatePost, isPending: isLoadingUpdate } = useUpdatePost()
-
-  console.log("postform - isLoadingCreate", {isLoadingCreate})
-  
-  const { user } = useUserContext()
-  const { toast } = useToast()
   const navigate = useNavigate()
-
+  const { toast } = useToast()
+  const { user } = useUserContext()
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof PostValidation>>({
@@ -58,14 +52,20 @@ const PostForm = ({ post, action }: PostFormProps) => {
       tags: post ? post.tag.join(',') : ""
     },
   })
+  
+  // Queery
+  const { mutateAsync: createPost, isPending: isLoadingCreate } = useCreatePost()
+  const { mutateAsync: updatePost, isPending: isLoadingUpdate } = useUpdatePost()
 
+  console.log("postform - isLoadingCreate", {isLoadingCreate})
+  
   
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof PostValidation>) {
 
-    console.log("la valeur du formulaire", values);
-    
+    console.log("la valeur avant - du formulaire", values);    
 
+     // ACTION = UPDATE
     if (post && action === 'Update') {
       const updatedPost = await updatePost({
         ...values,
@@ -93,7 +93,7 @@ const PostForm = ({ post, action }: PostFormProps) => {
     console.log('nouveau post', {newPost}) 
 
     if (!newPost) {
-      return toast({ title: "Something went wrong. Please try again." })
+      return toast({ title: "Something went wrong creating the post. Please try again." })
     }
 
     navigate('/')

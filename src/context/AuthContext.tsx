@@ -24,7 +24,6 @@ const INITIAL_STATE = {
 
 const AuthContext = createContext<IContextType>(INITIAL_STATE)
 
-console.log("je passe la - fonction de checkAuthUser");
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   
