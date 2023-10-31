@@ -75,11 +75,22 @@ export async function signInAccount(user: {
 }
 
 
+export async function getAccount() {
+  try {
+    const currentAccount = await account.get();
+
+    return currentAccount;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
 export async function getCurrentUser() {
 
   try {
 
-    const currentAccount = await account.get()
+    const currentAccount = await getAccount()
 
     console.log("dans api - getCurrentUser", currentAccount)
     
@@ -90,6 +101,9 @@ export async function getCurrentUser() {
       appwriteConfig.userCollectionId,
       [Query.equal('accountId', currentAccount.$id)],    // tena mbola manahirana - c'est reglé
     )
+
+    console.log("je passe la, currentUser", currentUser)
+    
 
     if (!currentUser) throw Error
 

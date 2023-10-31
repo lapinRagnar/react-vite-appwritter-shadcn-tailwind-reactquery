@@ -23,13 +23,15 @@ const SignupForm = () => {
 
   const { toast } = useToast()
 
-  const { checkAuthUser, isLoading: isUserLoading } = useUserContext()
+  // const { checkAuthUser, isLoading: isUserLoading } = useUserContext()
+  const { checkAuthUser } = useUserContext()
 
   const navigate = useNavigate()
 
   const { mutateAsync: createUserAccount, isPending: isCreatingAccount} = useCreateUserAccount()
 
-  const { mutateAsync: signInAccount, isPending: isSigningIn } = useSignInAccount()
+  // const { mutateAsync: signInAccount, isPending: isSigningIn } = useSignInAccount()
+  const { mutateAsync: signInAccount } = useSignInAccount()
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof SignupValidation>>({
@@ -92,7 +94,7 @@ const SignupForm = () => {
       <div className="sm:w-420 flex items-center flex-col">
 
         <img 
-          src="/assets/images/logo2.png"
+          src="/assets/images/logo4-1.png"
           alt="logo"
         />
 
@@ -176,7 +178,7 @@ const SignupForm = () => {
 
           <p className="text-small-regular text-light-2 text-center mt-2">
             already have an account ?
-            <Link to="/sign-up" className="text-primary-500 text-small-semibold ml-1" >Log in</Link>
+            <Link to="/sign-in" className="text-primary-500 text-small-semibold ml-1" >Log in</Link>
           </p>
 
         </form>

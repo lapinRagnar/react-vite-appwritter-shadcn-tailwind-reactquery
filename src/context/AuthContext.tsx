@@ -23,6 +23,9 @@ const INITIAL_STATE = {
 }
 
 const AuthContext = createContext<IContextType>(INITIAL_STATE)
+
+console.log("je passe la - fonction de checkAuthUser");
+
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   
   const [user, setUser] = useState<IUser>(INITIAL_USER)
@@ -66,13 +69,18 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
 
-    // || localStorage.getItem('cookieFallback')===null 
+    // || localStorage.getItem('cookieFallback')===null
+    const cookieFallback = localStorage.getItem("cookieFallback") 
 
-    if (localStorage.getItem('cookieFallback') === '[]') {
+    if (
+      cookieFallback === "[]" ||
+      cookieFallback === null ||
+      cookieFallback === undefined
+    ) {
       navigate('/sign-in')      
     }
     checkAuthUser()
-  }, [navigate])
+  }, [])
 
   const value = {
     user,
