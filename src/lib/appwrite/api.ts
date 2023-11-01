@@ -307,7 +307,7 @@ export async function updatePost(post: IUpdatePost) {
 
 
   const hasFileToUpdate = post.file?.length > 0
-  console.log("api - hasFileToUpdate", hasFileToUpdate)
+  console.log("api - le post avant update", post )
   
   
   try {
@@ -316,8 +316,6 @@ export async function updatePost(post: IUpdatePost) {
       imageUrl: post.imageUrl,
       imageId: post.imageId
     }
-
-    console.log("api - image", image);
     
 
     if (hasFileToUpdate){
@@ -344,8 +342,8 @@ export async function updatePost(post: IUpdatePost) {
 
 
     // convert tags in an array
-    const tags = post.tag?.replace(/ /g, '').split(',') || [] 
-    console.log("api - tag", tags)
+    // const tags = post.tags?.replace(/ /g, '').split(',') || [] 
+    // console.log("api - tag", tags)
     
 
     console.log("data avant mise à jour", {
@@ -353,7 +351,7 @@ export async function updatePost(post: IUpdatePost) {
       imageUrl: image.imageUrl,
       imageId: image.imageId,
       location: post.location,
-      tag: tags
+      tags: post.tags
     });
     
     // save the new post to the database
@@ -366,9 +364,10 @@ export async function updatePost(post: IUpdatePost) {
         imageUrl: image.imageUrl,
         imageId: image.imageId,
         location: post.location,
-        tag: tags
+        tags: post.tags
       }
     )
+
 
     if (!updatedPost){
       await deleteFile(post.imageId)

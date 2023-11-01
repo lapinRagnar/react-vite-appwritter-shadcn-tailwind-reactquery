@@ -49,21 +49,19 @@ const PostForm = ({ post, action }: PostFormProps) => {
       caption: post ? post?.caption : "",
       file: [],
       location: post ? post?.location : "",
-      tags: post ? post.tag.join(',') : ""
+      tags: post ? post.tags : ""
     },
   })
   
   // Queery
   const { mutateAsync: createPost, isPending: isLoadingCreate } = useCreatePost()
   const { mutateAsync: updatePost, isPending: isLoadingUpdate } = useUpdatePost()
-
-  console.log("postform - isLoadingCreate", {isLoadingCreate})
   
   
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof PostValidation>) {
 
-    console.log("la valeur avant - du formulaire", values);    
+    console.log("userId", user.id)
 
      // ACTION = UPDATE
     if (post && action === 'Update') {
@@ -90,7 +88,7 @@ const PostForm = ({ post, action }: PostFormProps) => {
       userId: user.id
     })
 
-    console.log('nouveau post', {newPost}) 
+    console.log('nouveau post enregistré ', {newPost}) 
 
     if (!newPost) {
       return toast({ title: "Something went wrong creating the post. Please try again." })

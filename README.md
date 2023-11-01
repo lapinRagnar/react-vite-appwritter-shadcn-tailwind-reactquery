@@ -90,6 +90,15 @@ VITE_APPWRITE_STORAGE_ID=<l'id du bucket>
 ## configurer aussi le databases
 VITE_APPWRITE_DATABASE_ID=<l'id du databases>
 
+# .env.local
+VITE_APPWRITE_URL=
+VITE_APPWRITE_PROJECT_ID=
+VITE_APPWRITE_DATABASE_ID=
+VITE_APPWRITE_STORAGE_ID=
+VITE_APPWRITE_USER_COLLECTION_ID=
+VITE_APPWRITE_POST_COLLECTION_ID=
+VITE_APPWRITE_SAVES_COLLECTION_ID=
+
 
 ## design la database
 ### on cree une collection Posts
@@ -158,3 +167,5 @@ https://www.npmjs.com/package/react-intersection-observer
 ```
 npm install react-intersection-observer --save
 ```	
+
+
